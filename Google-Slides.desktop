@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Terminal=false
+Type=Application
+Name=Google Slides
+Exec=/opt/google/chrome-beta/google-chrome-beta --profile-directory=Default --new-window https://docs.google.com/presentation/create
+Icon=chrome-gcfobpfeknjflfeibpenadfbgmdcmhgl-Default
+StartupWMClass=crx_gcfobpfeknjflfeibpenadfbgmdcmhgl

@@ -1,0 +1,7 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Terminal=true
+Type=Application
+Name=Jupyter Notebook
+Exec={home}/anaconda3/bin/jupyter notebook %f

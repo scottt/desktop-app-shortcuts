@@ -1,0 +1,37 @@
+#!/usr/bin/env python3
+
+DEST_DIR = '~/.local/share/applications'
+
+import sys
+import os
+import glob
+import shutil
+import subprocess
+
+DEST_DIR = os.path.expanduser(DEST_DIR)
+
+def template_expand_and_insatll(dest_dir):
+    d = dict(home=os.path.expanduser('~'))
+    template_files = glob.glob('*.in')
+    for fn in template_files:
+        fn_out = os.path.join(dest_dir, os.path.splitext(fn)[0])
+        t = open(fn).read()
+        with open(fn_out, 'w') as fout:
+            fout.write(t.format_map(d))
+        r = subprocess.call(['desktop-file-validate', fn_out])
+        if r != 0:
+            sys.stderr.write('%s is not a valid desktop file: %d\n' % (fn_out, r))
+
+def desktop_files_install(dest_dir):
+    for i in glob.glob('*.desktop'):
+        try:
+            shutil.copy(i, dest_dir)
+        except shutil.SameFileError:
+            pass
+
+def main(args):
+    template_expand_and_insatll(DEST_DIR)
+    desktop_files_install(DEST_DIR)
+
+if __name__ == '__main__':
+    main(sys.argv[1:])
